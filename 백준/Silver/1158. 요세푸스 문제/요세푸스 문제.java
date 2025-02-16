@@ -1,34 +1,41 @@
-import java.util.Scanner;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int N = in.nextInt();
-        int K = in.nextInt();
+    public static void main(String[] args) throws IOException {
+        // 입력 처리
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
 
-        Queue<Integer> queue = new LinkedList<>();
-
+        // 1부터 N까지의 숫자를 담은 리스트 생성
+        List<Integer> numberList = new ArrayList<>();
         for (int i = 1; i <= N; i++) {
-            queue.add(i);
+            numberList.add(i);
         }
 
+        // 제거된 숫자들을 저장할 리스트
+        List<Integer> resultList = new ArrayList<>();
+
+        int index = 0; // 현재 인덱스
+        while (!numberList.isEmpty()) {
+            // K번째 사람의 인덱스는 현재 인덱스에서 K-1만큼 이동한 위치 (원형이므로 mod 사용)
+            index = (index + K - 1) % numberList.size();
+            // 해당 인덱스의 숫자를 결과 리스트에 추가하고 원래 리스트에서 제거
+            resultList.add(numberList.remove(index));
+        }
+
+        // 결과 리스트를 문제에서 요구하는 형식 "<...>"로 출력
         StringBuilder sb = new StringBuilder();
         sb.append("<");
-
-        while(!queue.isEmpty()) {
-            for (int i = 0; i < K-1; i++) {
-                queue.add(queue.remove());
-            } // K-1번 만큼 큐 맨 앞의 요소를 제거하여 튜의 맨 뒤로 옮김.
-            sb.append(queue.remove()); // K번째 요소를 완전히 제거하면서 결과 문자열에 추가.
-            if (!queue.isEmpty()) {
+        for (int i = 0; i < resultList.size(); i++) {
+            sb.append(resultList.get(i));
+            if (i != resultList.size() - 1) {
                 sb.append(", ");
             }
         }
         sb.append(">");
         System.out.println(sb.toString());
-        in.close();
     }
-    
 }
