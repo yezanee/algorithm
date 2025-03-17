@@ -27,26 +27,26 @@ public class Main {
 
       int count = 0; // 출력된 문서 개수
 
-      while (!queue.isEmpty()) { // 큐가 빌 때까지 반복
+      while (!queue.isEmpty()) {
         int[] current = queue.poll(); // 큐의 맨 앞 문서를 꺼냄
 
         // 현재 문서가 가장 높은 중요도를 가진 문서인지 확인
-        if (current[1] == priorityQueue.peek()) { // 현재 문서의 중요도가 가장 높다면
-          count++; // 출력 개수 증가
-          priorityQueue.poll(); // 우선순위 큐에서도 제거 (출력 완료)
-
+        if (current[1] == priorityQueue.peek()) {
+          count++;
+          priorityQueue.poll();
+            
           // 찾던 문서면 결과 저장 후 종료
-          if (current[0] == M) { // 찾던 문서라면
-            sb.append(count).append("\n"); // 정답 저장
-            break; // 찾았으면 반복문 종료
+          if (current[0] == M) {
+            sb.append(count).append("\n");
+            break;
           }
+            
         } else {
           queue.offer(current); // 중요도가 낮으면 다시 큐에 추가
         }
       }
     }
-
-    System.out.print(sb.toString()); // 한 번에 출력하여 속도 개선
+    System.out.print(sb.toString());
   }
 }
 
