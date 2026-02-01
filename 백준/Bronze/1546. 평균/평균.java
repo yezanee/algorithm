@@ -1,26 +1,27 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args)  {
-
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt(); // 시험 본 과목의 개수
-        double[] score = new double[N]; // 세준이의 현재 성적
-        int index = 0;
-        for(; index < N; index++) {
-            score[index] = sc.nextDouble();
-        }
-
-        Arrays.sort(score);
-        double max = score[index-1];
-        double avg = 0;
-
-        for(double i : score) { avg += (i / max) * 100; }
-
-        avg = avg / N;
-
-        System.out.println(avg);
-
-    }
+	public static void main(String[] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int N = Integer.parseInt(br.readLine());
+		int[] score = new int[N];
+		double sum = 0;
+		
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		for(int i=0; i<N; i++) {
+			score[i] = Integer.parseInt(st.nextToken());
+		}
+		
+		Arrays.sort(score);
+		int max = score[N-1];
+		
+		for(int i=0; i<N; i++) {
+			sum += (double)score[i]/max*100;
+		}
+		
+		System.out.println(sum/N);
+	}
 }
