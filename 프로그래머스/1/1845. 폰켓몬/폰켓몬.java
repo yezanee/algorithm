@@ -1,19 +1,14 @@
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
 class Solution {
     public int solution(int[] nums) {
+        int N = (nums.length) / 2; // 가져갈 수 있는 폰켓몬 수
+        HashSet<Integer> set = new HashSet<>();
         
-        HashSet<Integer> select = new HashSet<>();
-        
-        for (int num : nums) {
-            select.add(num);
+        for(int i : nums) {
+            set.add(i);
         }
         
-        int maxSize = select.size();
-        int selectMaxSize = nums.length / 2;
-        
-        return Math.min(maxSize, selectMaxSize);
-     
+        return Math.min(set.size(), N);
     }
 }
