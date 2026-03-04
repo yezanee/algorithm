@@ -1,23 +1,25 @@
-import java.util.Arrays;
+import java.util.*;
 
 class Solution {
     public int[] solution(int[] array, int[][] commands) {
         int[] answer = new int[commands.length];
         
-        for(int i = 0; i < commands.length; i++) {
-            int firstIdx = commands[i][0] - 1;
-            int endIdx = commands[i][1] - 1;
-            int selectIdx = commands[i][2] - 1;
+        for(int l=0; l<commands.length; l++) {
+            int i = commands[l][0];
+            int j = commands[l][1];
+            int k = commands[l][2];
             
-            int[] splitArray = new int[endIdx - firstIdx + 1];
+            int[] subArr = new int[j - i + 1];
+            int idx=0;
             
-            for(int j = 0; j < splitArray.length; j++) {
-                splitArray[j] = array[firstIdx++];
+            for(int n=i-1; n<j; n++) {
+                subArr[idx] = array[n];
+                idx++;
             }
             
-            Arrays.sort(splitArray);
+            Arrays.sort(subArr);
             
-            answer[i] += splitArray[selectIdx];
+            answer[l] = subArr[k-1];
         }
         
         return answer;
