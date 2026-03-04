@@ -1,23 +1,21 @@
 class Solution {
+    
+    int count = 0;
+    
     public int solution(int[] numbers, int target) {
         
-        return dfs(numbers, 0, 0, target);
+        dfs(numbers, target, 0, 0);
+        return count;
     }
     
-    // 깊이 우선 탐색으로 모든 +/- 조합을 탐색
-    public int dfs(int[] numbers, int idx, int sum, int target) {
+    public void dfs(int[] numbers, int target, int depth, int sum) {
         
-        // 모든 숫자를 다 썼다면, 합이 target인지 확인
-        if (idx == numbers.length) {
-            return (sum == target) ? 1 : 0;
+        if(numbers.length == depth) {
+            if(target == sum) { count++; }
+            return;
         }
         
-        // 현재 숫자를 더하는 경우
-        int count = dfs(numbers, idx + 1, sum + numbers[idx], target);
-        
-        // 현재 숫자를 빼는 경우
-        count += dfs(numbers, idx + 1, sum - numbers[idx], target);
-        
-        return count;
+        dfs(numbers, target, depth + 1, sum + numbers[depth]);
+        dfs(numbers, target, depth + 1, sum - numbers[depth]);
     }
 }
