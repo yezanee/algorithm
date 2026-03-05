@@ -1,23 +1,18 @@
-import java.util.HashMap;
+import java.util.*;
 
 class Solution {
     public int solution(String[][] clothes) {
+        int answer = 1;
         HashMap<String, Integer> map = new HashMap<>();
-
-        // 각 의상 종류별로 개수를 저장
-        for (String[] item : clothes) {
-            String type = item[1];
-            map.put(type, map.getOrDefault(type, 0) + 1);
+        
+        for(String[] c : clothes) {
+            map.put(c[1], map.getOrDefault(c[1], 0) + 1);
         }
-
-        int result = 1;
-
-        // 조합 계산: 각 의상 종류마다 (입지 않는 경우 + 입는 경우)를 곱함
-        for (int count : map.values()) {
-            result *= (count + 1); // 입지 않는 경우를 포함하기 위해 +1
+        
+        for(int v : map.values()) {
+            answer *= (v + 1); // 안 입는 경우의 수도 포함
         }
-
-        // 최소 하나는 입어야 하므로 아무것도 입지 않는 경우(=1)를 제외
-        return result - 1;
+        
+        return answer - 1; // 아무것도 안 입는 경우 빼기
     }
 }
