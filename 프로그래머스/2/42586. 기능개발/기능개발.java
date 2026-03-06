@@ -1,30 +1,30 @@
 import java.util.*;
 
 class Solution {
-    public int[] solution(int[] progresses, int[] speeds) {
+    public List<Integer> solution(int[] progresses, int[] speeds) {
+        Queue<Integer> days = new LinkedList<>();
+        List<Integer> answer = new ArrayList<>();
         
-        int[] complement = new int[progresses.length];
-        List<Integer> list = new ArrayList<>();
-        int cnt = 1;
-        int max = 0;
-        
-        for(int i=0; i<complement.length; i++) {
-            complement[i] = (100 - progresses[i]) % speeds[i] != 0 ?
-                (100 - progresses[i]) / speeds[i] + 1 : (100 - progresses[i]) / speeds[i];
+        for (int i = 0; i < progresses.length; i++) {
+            int remain = 100 - progresses[i];
+            int day = (remain % speeds[i] == 0) 
+                    ? (remain / speeds[i]) 
+                    : (remain / speeds[i]) + 1;
+            
+            days.offer(day);
         }
         
-        max = complement[0];
-                
-        for(int i=1; i<complement.length; i++) {
-            if(max >= complement[i]) cnt++;
-            else { list.add(cnt); cnt=1; max = complement[i]; }
-        }
-        list.add(cnt); // 중요
-        
-        int[] answer = new int[list.size()];
-        
-        for(int i=0; i<answer.length; i++) {
-            answer[i] = list.get(i);
+        while (!days.isEmpty()) {
+            int current = days.poll(); // 현재 배포 기준일
+            int cnt = 1;
+            
+            // 뒤의 기능들이 current보다 빨리 끝나거나 같은 날 끝나면 같이 배포
+            while (!days.isEmpty() && days.peek() <= current) {
+                days.poll();
+                cnt++;
+            }
+            
+            answer.add(cnt);
         }
         
         return answer;
