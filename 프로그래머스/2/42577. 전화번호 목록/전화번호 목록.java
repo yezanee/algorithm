@@ -2,14 +2,21 @@ import java.util.*;
 
 class Solution {
     public boolean solution(String[] phone_book) {
-        boolean answer = true;
-        Set<String> set = new HashSet<>(Arrays.asList(phone_book));
+        HashSet<String> set = new HashSet<>();
         
         for(String s : phone_book) {
-            for(int i=1; i<s.length(); i++) {
-                if(set.contains(s.substring(0, i))) return false;
+            set.add(s);
+        }
+        
+        for(int i=0; i<phone_book.length; i++) {
+            String now = phone_book[i];
+            
+            for(int j=0; j<now.length(); j++) {
+                if(set.contains(now.substring(0, j))) {
+                    return false;
+                }
             }
         }
-        return answer;
+        return true;
     }
 }
