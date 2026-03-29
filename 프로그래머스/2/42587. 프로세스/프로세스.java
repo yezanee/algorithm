@@ -1,48 +1,47 @@
 import java.util.*;
 
-class Solution {
-    public static class Document {
-        int prior;
-        int index;
-        
-        Document(int prior, int index) {
-            this.prior = prior;
-            this.index = index;
-        }
-    }
+class Node {
+    int index;
+    int priority;
     
+    Node(int index, int priority) {
+        this.index = index;
+        this.priority = priority;
+    }
+}
+
+class Solution {
     public int solution(int[] priorities, int location) {
-        Queue<Document> queue = new LinkedList<>(); // 실행 대기 큐
-        boolean isPrior;
-        int result = 0;
+        Queue<Node> queue = new LinkedList<>();
         
         for(int i=0; i<priorities.length; i++) {
-            queue.add(new Document(priorities[i], i)); // 우선순위랑 위치 큐에 저장
+            queue.add(new Node(i, priorities[i]));
         }
-                      
-        while(!queue.isEmpty()) {
-            Document save = queue.poll(); // 대기 중인 프로세스 하나 꺼냄.
-            isPrior = false;
         
-            for(Document doc : queue) {
-                if(doc.prior > save.prior) {
-                    isPrior = true;
+        int count = 0;
+
+        while (!queue.isEmpty()) {
+            Node current = queue.poll();
+
+            boolean hasHigher = false;
+
+            for (Node node : queue) {
+                if (node.priority > current.priority) {
+                    hasHigher = true;
                     break;
                 }
             }
-            
-            if (isPrior) { // 큐에 다시 넣기
-                queue.add(save);
-            } else {
-                // 없다면 그대로 실행 후 종료
-                result++;
-                
-                if(save.index == location) {
-                    break;
-                }
-            }            
-        }
 
-        return result;
+            if (hasHigher) {
+                queue.add(current);
+            } else {
+                count++;
+                if (current.index == location) {
+                    return count;
+                }
+            }
+        }
+        
+        return count;
     }
 }
