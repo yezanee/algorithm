@@ -1,27 +1,22 @@
+import java.util.*;
+
 class Solution {
     boolean solution(String s) {
-        boolean answer = true;
-        int cnt = 0;
+        Stack<Integer> stack = new Stack<>();
         
         for(int i=0; i<s.length(); i++) {
-            if(s.charAt(i) == '(') {
-                cnt++;
-            } else if (s.charAt(i) == ')') {
-                if (cnt == 0) {
-                    answer = false;
-                    return answer;
+            if(s.substring(i, i+1).equals("(")) {
+                stack.push(1);
+            } else if (s.substring(i, i+1).equals(")")) {
+                if(stack.isEmpty()) {
+                    return false;
                 } else {
-                    cnt--;
+                    stack.pop();   
                 }
             }
         }
         
-        if (cnt <= 0) {
-            answer = true;
-        } else if (s.charAt(s.length()-1) == '(' || cnt > 0) {
-            answer = false;
-        }
-
-        return answer;
+        if (stack.isEmpty()) return true;
+        else return false;
     }
 }
