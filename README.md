@@ -14,6 +14,7 @@
 | [1378-replace-employee-id-with-the-unique-identifier](https://github.com/yezanee/algorithm/tree/master/1378-replace-employee-id-with-the-unique-identifier) |
 | [1581-customer-who-visited-but-did-not-make-any-transactions](https://github.com/yezanee/algorithm/tree/master/1581-customer-who-visited-but-did-not-make-any-transactions) |
 | [1683-invalid-tweets](https://github.com/yezanee/algorithm/tree/master/1683-invalid-tweets) |
+| [1729-find-followers-count](https://github.com/yezanee/algorithm/tree/master/1729-find-followers-count) |
 | [1757-recyclable-and-low-fat-products](https://github.com/yezanee/algorithm/tree/master/1757-recyclable-and-low-fat-products) |
 | [2356-number-of-unique-subjects-taught-by-each-teacher](https://github.com/yezanee/algorithm/tree/master/2356-number-of-unique-subjects-taught-by-each-teacher) |
 <!---LeetCode Topics End-->
